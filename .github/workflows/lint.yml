@@ -1,0 +1,25 @@
+name: ESLint
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - run: npm install --only=dev
+
+      - uses: tinovyatkin/action-eslint@v1
+        with:
+          repo-token: ${{secrets.GITHUB_TOKEN}}
+          check-name: eslint
