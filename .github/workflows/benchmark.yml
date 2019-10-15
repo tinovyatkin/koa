@@ -1,0 +1,40 @@
+name: Benchmark
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: run
+    runs-on: macOS-latest
+    steps:
+      # checkout wrk
+      # - name: Checkout wrk
+      #   uses: actions/checkout@v1
+      #   with:
+      #     repository: wg/wrk
+      #     ref: master
+      #     fetch-depth: 1
+      # - name: Build wrk
+      #   run: make -C /home/runner/work/koa/wrk
+
+      # - name: Add wrk to path
+      #   run: echo ::add-path::/home/runner/work/koa/wrk
+      - run: brew install wrk
+
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - run: npm install --production
+      - run: make -C benchmarks
+        env:
+          NODE_ENV: production
