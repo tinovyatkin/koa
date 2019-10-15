@@ -35,6 +35,7 @@ jobs:
         npm run test-cov
       env:
         CI: true
+        FORCE_COLOR: 2
 
     - name: Upload coverage to Codecov
         # https://github.com/codecov/codecov-bash/blob/1044b7a243e0ea0c05ed43c2acd8b7bb7cef340c/codecov#L158
